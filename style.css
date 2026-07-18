@@ -1,0 +1,128 @@
+
+.theme-toggle:hover .label { 
+    color: var(--accent); 
+    transition: color 0.2s ease; 
+  }
+  .theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; /* Slightly increased from 10.5px */
+    font-weight: 1200; /* Added bold weight for better readability */
+    letter-spacing: 0.06em;
+    color: rgb(103, 15, 96); /* Changed from tertiary to primary for maximum visibility */
+    padding: 0;
+  }
+    /* ---------- projects: card grid ---------- */
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 720px) { .project-grid { grid-template-columns: 1fr; } }
+ 
+  .project-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 26px 26px 22px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--bg-raised);
+    transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  }
+  .project-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px -22px var(--accent-dim), 0 0 0 1px var(--accent-dim);
+    background: var(--bg-raised-2);
+  }
+ 
+  .card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .card-idx {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    color: var(--text-tertiary);
+    letter-spacing: 0.06em;
+  }
+  .status-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid var(--line-bright);
+    color: var(--text-tertiary);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .status-pill::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .status-pill.completed { color: var(--accent); border-color: var(--accent-dim); }
+  .status-pill.progress  { color: #e0b84f; border-color: #e0b84f3d; }
+  .status-pill.research  { color: var(--text-secondary); border-color: var(--line-bright); }
+ 
+  .project-card h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+    line-height: 1.3;
+  }
+  .project-card > p {
+    font-size: 0.96rem;
+    line-height: 1.65;
+    margin-bottom: 16px;
+    flex-grow: 1;
+  }
+  .project-card .chips { margin-bottom: 20px; }
+  .project-card .chips .chip { font-size: 10.5px; padding: 4px 10px; }
+ 
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    margin-top: auto;
+  }
+  .card-links { display: flex; gap: 16px; }
+  .card-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+  }
+  .card-links a svg { width: 14px; height: 14px; flex-shrink: 0; }
+  .card-links a:hover { color: var(--accent); }
+  .card-links .unavailable {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-tertiary);
+    cursor: default;
+  }
