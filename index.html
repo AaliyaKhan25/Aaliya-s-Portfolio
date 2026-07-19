@@ -348,7 +348,37 @@
     margin-bottom: 26px;
   }
   .hero-copy .slogan::before { content: '// '; }
+  .hero-copy .tagline {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.4;
+    margin-bottom: 14px;
+    max-width: 40ch;
+  }
   .hero-copy p { max-width: 46ch; margin-bottom: 32px; }
+
+  .avail-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    color: var(--text-secondary);
+    padding: 8px 14px;
+    border: 1px solid var(--line-bright);
+    border-radius: 20px;
+    background: var(--accent-dim-2);
+    margin-bottom: 26px;
+  }
+  .avail-pill .blip {
+    width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+    background: var(--accent);
+    box-shadow: 0 0 0 0 var(--accent-dim);
+    animation: blip 1.6s ease-out infinite;
+  }
 
   /* typewriter caret for the hero headline */
   .type-caret {
@@ -544,17 +574,56 @@
   .learning-strip p { font-size: 0.95rem; margin: 0; color: var(--text-secondary); }
   .learning-strip strong { color: var(--text-primary); font-weight: 600; }
 
-  /* ---------- skills / stack chips ---------- */
-  .chip-groups { display: flex; flex-direction: column; gap: 22px; }
-  .chip-row { display: flex; gap: 16px; align-items: baseline; flex-wrap: wrap; }
-  .chip-row .label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--text-tertiary);
-    letter-spacing: 0.06em;
-    width: 110px;
-    flex-shrink: 0;
+  /* ---------- skills / stack cards ---------- */
+  .stack-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
   }
+  @media (max-width: 780px) { .stack-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .stack-grid { grid-template-columns: 1fr; } }
+
+  .stack-card {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--bg-raised);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  }
+  .stack-card:hover {
+    border-color: var(--accent);
+    background: var(--bg-raised-2);
+    transform: translateY(-4px) scale(1.015);
+    box-shadow: 0 18px 40px -22px var(--accent-dim), 0 0 0 1px var(--accent-dim);
+  }
+
+  .stack-card-head { display: flex; align-items: center; gap: 10px; }
+  .stack-icon {
+    width: 30px; height: 30px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--line-bright);
+    border-radius: 50%;
+    color: var(--accent);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  .stack-card:hover .stack-icon {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-dim);
+  }
+  .stack-icon svg { width: 15px; height: 15px; }
+  .stack-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
   .chips { display: flex; gap: 8px; flex-wrap: wrap; }
   .chip {
     font-family: 'JetBrains Mono', monospace;
@@ -849,8 +918,20 @@
   }
   .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
+  /* bounce-in variant: springy overshoot entrance for tech-stack cards */
+  .reveal.bounce {
+    transform: translateY(46px) scale(0.82);
+    transition: opacity 0.55s cubic-bezier(0.34, 1.56, 0.64, 1),
+                transform 0.68s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .reveal.bounce.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .reveal { transition: none; opacity: 1; transform: none; }
+    .reveal.bounce { transition: none; opacity: 1; transform: none; }
     html { scroll-behavior: auto; }
     .scroll-text .word { opacity: 1 !important; filter: none !important; color: var(--text-secondary) !important; }
     .scroll-text strong.word { color: var(--text-primary) !important; }
@@ -901,7 +982,12 @@
       </div>
       <h1 id="heroType" aria-label="Hi, I'm Aaliya"></h1>
       <div class="role reveal" data-reveal-after-type>AI/ML Systems · Python &amp; Web Scraping · Cybersecurity &amp; Cryptography</div>
+      <div class="tagline reveal" data-reveal-after-type>Building intelligent systems that think smart, stay secure, and ship fast.</div>
       <div class="slogan reveal" data-reveal-after-type><span id="sloganType"></span><span class="type-caret slogan-caret"></span></div>
+      <div class="avail-pill reveal" data-reveal-after-type>
+        <span class="blip"></span>
+        Based in Indore, India · Open to internships
+      </div>
       <p class="scroll-text" data-reveal-after-type>
         I'm a second-year Electronics & Instrumentation Engineering student at SGSITS Indore who loves understanding systems and building smarter, safer versions of them. My work sits at the intersection of AI/ML, cybersecurity, and web development — using Python and libraries like Pandas, NumPy, and Scikit-learn to build data-driven tools, while growing my knowledge of cybersecurity and cryptography. I have a keen interest in hackathons, having won 1st place at PRARUPAM (AAROHAN Techfest) and reached the finals at MANTHAN 1.0. I also learn through research, working on a soft robotic gripper at DRDO and post-quantum secure optical communication at iQCMAT using Qiskit. Currently picking up newer libraries in Python , Django and sharpening DSA in Java.
       </p>
@@ -985,6 +1071,13 @@
       </p>
     </div>
 
+    <div class="block reveal">
+      <span class="tag">Why Hire Me</span>
+      <p class="scroll-text">
+        I don't just build things that work — I build things that hold up. My work spans <strong>AI/ML systems</strong>, <strong>cybersecurity</strong>, and <strong>full-stack development</strong>, grounded in real research experience at DRDO and iQCMAT and proven under pressure at national hackathons. I bring the rare combination of someone who can design a model, secure it, and ship it as a usable product.
+      </p>
+    </div>
+
     <div class="learning-strip reveal">
       <span class="live-pill"><span class="blip"></span>Currently building</span>
       <p>Deepening my grip on <strong>advanced Python libraries</strong> for data &amp; AI workflows, picking up the <strong>Django framework</strong> for backend web development, and sharpening problem-solving fundamentals by working through <strong>Data Structures &amp; Algorithms in Java</strong>.</p>
@@ -1000,19 +1093,36 @@
     </div>
     <h2 class="reveal">Tools &amp; areas</h2>
 
-    <div class="chip-groups reveal">
-      <div class="chip-row">
-        <span class="label">AI / ML</span>
+    <div class="stack-grid">
+      <div class="stack-card reveal bounce">
+        <div class="stack-card-head">
+          <span class="stack-icon">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="5" width="6" height="6" rx="1"/>
+              <line x1="8" y1="1" x2="8" y2="4"/><line x1="8" y1="12" x2="8" y2="15"/>
+              <line x1="1" y1="8" x2="4" y2="8"/><line x1="12" y1="8" x2="15" y2="8"/>
+            </svg>
+          </span>
+          <span class="stack-label">AI / ML</span>
+        </div>
         <div class="chips">
           <span class="chip">Python</span>
-          <span class="chip">TensorFlow</span>
-          <span class="chip">PyTorch</span>
+          <span class="chip">Matplotlib</span>
+          <span class="chip">Numpy</span>
+          <span class="chip">Pandas</span>
           <span class="chip">Scikit-learn</span>
-          <span class="chip">Web Scraping</span>
         </div>
       </div>
-      <div class="chip-row">
-        <span class="label">SECURITY</span>
+
+      <div class="stack-card reveal bounce">
+        <div class="stack-card-head">
+          <span class="stack-icon">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 1l6 2.2v4c0 4-2.5 6.8-6 7.8-3.5-1-6-3.8-6-7.8v-4L8 1z"/>
+            </svg>
+          </span>
+          <span class="stack-label">Security</span>
+        </div>
         <div class="chips">
           <span class="chip">Cybersecurity</span>
           <span class="chip">Cryptography</span>
@@ -1021,16 +1131,32 @@
           <span class="chip featured">CyberChef</span>
         </div>
       </div>
-      <div class="chip-row">
-        <span class="label">SYSTEMS</span><br>
+
+      <div class="stack-card reveal bounce">
+        <div class="stack-card-head">
+          <span class="stack-icon">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="8" cy="8" r="6.5"/><path d="M8 8l3-3"/><circle cx="8" cy="8" r="0.7" fill="currentColor" stroke="none"/>
+            </svg>
+          </span>
+          <span class="stack-label">Systems</span>
+        </div>
         <div class="chips">
           <span class="chip">MATLAB &amp; Simulink</span>
           <span class="chip">LabVIEW</span>
           <span class="chip">Qiskit</span>
         </div>
       </div>
-      <div class="chip-row">
-        <span class="label">WEB / DEV</span>
+
+      <div class="stack-card reveal bounce">
+        <div class="stack-card-head">
+          <span class="stack-icon">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 4L1.5 8 5 12"/><path d="M11 4l3.5 4-3.5 4"/>
+            </svg>
+          </span>
+          <span class="stack-label">Web / Dev</span>
+        </div>
         <div class="chips">
           <span class="chip">React.js</span>
           <span class="chip">HTML/CSS</span>
@@ -1041,17 +1167,37 @@
           <span class="chip">Tailwind CSS/SCSS</span>
         </div>
       </div>
-             <div class="chip-row">
-        <span class="label"> VERSION CONTROL </span>
+
+      <div class="stack-card reveal bounce">
+        <div class="stack-card-head">
+          <span class="stack-icon">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="4" cy="3" r="1.3"/><circle cx="4" cy="13" r="1.3"/><circle cx="12" cy="6" r="1.3"/>
+              <line x1="4" y1="4.3" x2="4" y2="11.7"/><path d="M4 8c0-1.5 1.2-2.7 4-2.7h1.5"/>
+            </svg>
+          </span>
+          <span class="stack-label">Version Control</span>
+        </div>
         <div class="chips">
-        <span class="chip">Git &amp; GitHub</span>
+          <span class="chip">Git &amp; GitHub</span>
         </div>
       </div>
-      <div class="chip-row">
-        <span class="label">LEARNING</span>
+
+      <div class="stack-card reveal bounce">
+        <div class="stack-card-head">
+          <span class="stack-icon">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 3.5C2 2.7 2.7 2 3.5 2H8v11H3.5C2.7 13 2 13.7 2 14.5V3.5z"/>
+              <path d="M14 3.5c0-.8-.7-1.5-1.5-1.5H8v11h4.5c.8 0 1.5.7 1.5 1.5V3.5z"/>
+            </svg>
+          </span>
+          <span class="stack-label">Learning</span>
+        </div>
         <div class="chips">
           <span class="chip">Advanced Python Libraries</span>
           <span class="chip">Django</span>
+          <span class="chip">Flask</span>
+          <span class="chip">FastAPI</span>
           <span class="chip">DSA (Java)</span>
           <span class="chip">Springboot</span>
         </div>
@@ -1059,7 +1205,7 @@
     </div>
 
     <p class="ctf-note reveal">
-      // comfortable using tools like <strong>CyberChef</strong> for encoding, decoding &amp; forensic analysis · competed in the <strong>e-Rakshak National Cybersecurity Hackathon (CTF qualifier round)</strong>, finishing in the top 100 teams out of a large national pool.
+      // comfortable using tools like <strong>CyberChef</strong> for encoding, decoding &amp; forensic analysis · competed in the <strong>e-Rakshak National Cybersecurity Hackathon (CTF qualifier round)</strong>, finishing in the top 100 teams out of a large national pool · comfortable working with <strong>AI tools</strong> (ChatGPT, Claude, GitHub Copilot, Gemini) to accelerate research, debugging, and prototyping.
     </p>
   </div>
 </section>
@@ -1211,7 +1357,7 @@
         <div class="card-footer">
           <div class="card-links">
             <a href="https://github.com/AaliyaKhan25/gs-motorsport-website" target="_blank" rel="noopener noreferrer">
-              <svg viewBox="0 0 16 16" fill="currentColor"><path d=""M8 1a3 3 0 0 0-3 3v2H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-1V4a3 3 0 0 0-3-3zm-2 5V4a2 2 0 1 1 4 0v2H6z"/></svg>
+              <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1a3 3 0 0 0-3 3v2H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-1V4a3 3 0 0 0-3-3zm-2 5V4a2 2 0 1 1 4 0v2H6z"/></svg>
               View repo
             </a>
           </div>
